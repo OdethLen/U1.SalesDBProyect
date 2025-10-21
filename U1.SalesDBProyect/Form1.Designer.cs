@@ -34,6 +34,10 @@
             label1 = new Label();
             btnShow = new Button();
             groupBox1 = new GroupBox();
+            btnFilterDate = new Button();
+            dtpTwo = new DateTimePicker();
+            dtpOne = new DateTimePicker();
+            label5 = new Label();
             btnFilterGender = new Button();
             cbxGender = new ComboBox();
             label4 = new Label();
@@ -66,7 +70,7 @@
             dgvData.Location = new Point(245, 100);
             dgvData.Name = "dgvData";
             dgvData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvData.Size = new Size(654, 349);
+            dgvData.Size = new Size(654, 481);
             dgvData.TabIndex = 1;
             dgvData.CellContentClick += dgvData_CellContentClick;
             // 
@@ -103,6 +107,10 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnFilterDate);
+            groupBox1.Controls.Add(dtpTwo);
+            groupBox1.Controls.Add(dtpOne);
+            groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(btnFilterGender);
             groupBox1.Controls.Add(cbxGender);
             groupBox1.Controls.Add(label4);
@@ -114,9 +122,46 @@
             groupBox1.Controls.Add(btnFilterCountry);
             groupBox1.Location = new Point(30, 91);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(171, 358);
+            groupBox1.Size = new Size(171, 566);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
+            // 
+            // btnFilterDate
+            // 
+            btnFilterDate.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnFilterDate.Location = new Point(27, 489);
+            btnFilterDate.Name = "btnFilterDate";
+            btnFilterDate.Size = new Size(90, 30);
+            btnFilterDate.TabIndex = 18;
+            btnFilterDate.Text = "Filter";
+            btnFilterDate.UseVisualStyleBackColor = true;
+            btnFilterDate.Click += btnFilterDate_Click;
+            // 
+            // dtpTwo
+            // 
+            dtpTwo.Format = DateTimePickerFormat.Short;
+            dtpTwo.Location = new Point(27, 438);
+            dtpTwo.Name = "dtpTwo";
+            dtpTwo.Size = new Size(110, 23);
+            dtpTwo.TabIndex = 17;
+            // 
+            // dtpOne
+            // 
+            dtpOne.Format = DateTimePickerFormat.Short;
+            dtpOne.Location = new Point(27, 392);
+            dtpOne.Name = "dtpOne";
+            dtpOne.Size = new Size(110, 23);
+            dtpOne.TabIndex = 16;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(16, 356);
+            label5.Name = "label5";
+            label5.Size = new Size(41, 20);
+            label5.TabIndex = 13;
+            label5.Text = "Date";
             // 
             // btnFilterGender
             // 
@@ -203,7 +248,7 @@
             // btnExportPDF
             // 
             btnExportPDF.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnExportPDF.Location = new Point(67, 478);
+            btnExportPDF.Location = new Point(257, 622);
             btnExportPDF.Name = "btnExportPDF";
             btnExportPDF.Size = new Size(100, 49);
             btnExportPDF.TabIndex = 13;
@@ -214,7 +259,7 @@
             // btnExportXML
             // 
             btnExportXML.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnExportXML.Location = new Point(197, 478);
+            btnExportXML.Location = new Point(416, 622);
             btnExportXML.Name = "btnExportXML";
             btnExportXML.Size = new Size(100, 49);
             btnExportXML.TabIndex = 14;
@@ -225,7 +270,7 @@
             // btnExportJson
             // 
             btnExportJson.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnExportJson.Location = new Point(326, 478);
+            btnExportJson.Location = new Point(535, 622);
             btnExportJson.Name = "btnExportJson";
             btnExportJson.Size = new Size(100, 49);
             btnExportJson.TabIndex = 15;
@@ -237,7 +282,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1011, 564);
+            ClientSize = new Size(1011, 683);
             Controls.Add(btnExportJson);
             Controls.Add(btnExportXML);
             Controls.Add(btnExportPDF);
@@ -274,5 +319,9 @@
         private Button btnExportPDF;
         private Button btnExportXML;
         private Button btnExportJson;
+        private Label label5;
+        private DateTimePicker dtpOne;
+        private DateTimePicker dtpTwo;
+        private Button btnFilterDate;
     }
 }

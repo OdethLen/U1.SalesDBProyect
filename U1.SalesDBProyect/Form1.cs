@@ -517,5 +517,81 @@ namespace U1.SalesDBProyect
                 }
             }
         }
+
+        private void btnFilterDate_Click(object sender, EventArgs e)
+        {
+
+
+            DateTime fechaInicio = dtpOne.Value.Date;
+            DateTime fechaFin = dtpTwo.Value.Date;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    // Primero tomamos los mismos 100k iniciales (como base fija)
+                    string query = @"
+                WITH Top100K AS (
+                    SELECT TOP 100000 
+                        id AS Id,
+                        customerName AS [Name],
+                        email AS [Email],
+                        gender AS [Gender],
+                        signupDate AS SignUpDate,
+                        country AS [Country]
+                    FROM dbo.Customer
+                    ORDER BY id
+                )
+                SELECT *
+                FROM Top100K
+                WHERE CAST(SignUpDate AS date) BETWEEN @FechaInicio AND @FechaFin
+                ORDER BY SignUpDate ASC;";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                        command.Parameters.AddWithValue("@FechaFin", fechaFin);
+
+                        SqlDataAdapter adapter = new SqlDataAdapter(command);
+                        DataTable dataTable = new DataTable();
+                        adapter.Fill(dataTable);
+
+                        dgvData.DataSource = dataTable;
+
+                        int totalRegistros = dataTable.Rows.Count;
+
+                        if (totalRegistros > 0)
+                        {
+                            MessageBox.Show(
+                                $"Se encontraron {totalRegistros:N0} registros entre {fechaInicio:yyyy-MM-dd} y {fechaFin:yyyy-MM-dd} (dentro de los primeros 100k).",
+                                "Filtro aplicado",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information
+                            );
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontraron registros en ese rango de fechas.",
+                                            "Sin resultados",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al filtrar los datos: " + ex.Message,
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+            }
+
+
+
+
+        }
     }
 }
